@@ -1,0 +1,52 @@
+import "hashes/sha256/512bit" as sha256;
+
+// The main function for proving eKYC information
+def main() -> bool {
+    // Embedded eKYC information as 16 chunks of 32-bit values
+    // Original Input:
+    // Name: "Ahmed"
+    // University: "OMU"
+    // GPA: "4.0"
+    // Field: "Informatics"
+    // Degree: "PhD"
+    
+    // Converting each string into its ASCII values, packing them into 32-bit chunks:
+    
+    // Name: "Ahmed" -> [65, 104, 109, 101, 100]
+    // "Ahme" -> 0x41686d65  // Chunk 1
+    // "d" -> 0x64000000  // Chunk 2 (padded with zeros)
+    
+    // University: "OMU" -> [79, 77, 85]
+    // "OMU" -> 0x4f4d5500  // Chunk 3 (padded with zeros)
+    
+    // GPA: "4.0" -> [52, 46, 48]
+    // "4." -> 0x34002e00  // Chunk 4 (padded with zeros)
+    // "0" -> 0x30000000  // Chunk 5 (padded with zeros)
+    
+    // Field: "Informatics" -> [73, 110, 102, 111, 114, 109, 97, 116, 105, 99, 115]
+    // "Info" -> 0x496e666f  // Chunk 6
+    // "rmat" -> 0x726d6174  // Chunk 7
+    // "ics" -> 0x69637300  // Chunk 8 (padded with zeros)
+    
+    // Degree: "PhD" -> [80, 104, 68]
+    // "PhD" -> 0x50684400  // Chunk 9 (padded with zeros)
+    
+    // Padding the remaining chunks with zeros to fill the 512-bit requirement
+    u32[16] eKYC_info = [
+        0x4a6f686e, 0x4d616c65, 0x4a617061, 0x34002e00, 0x6e000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000
+    ];
+    u32[8] expected_hash = [
+        0x726dd5a5, 0xabc4f8a7, 0xc38b6b54, 0x5ef62227,
+        0x2fc076ea, 0xa7250548, 0x949c546f, 0x31a8a816
+    ];
+    u32[8] computed_hash = sha256(eKYC_info[0..8], eKYC_info[8..16]);
+    bool isValid = computed_hash == expected_hash;
+    return isValid;
+}
+
+
+
+
+
