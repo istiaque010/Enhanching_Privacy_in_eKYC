@@ -345,3 +345,8 @@ contract Verifier {
 }
 
 ```
+
+### on-chain verification output:
+
+![image](https://github.com/user-attachments/assets/66260420-e669-4cc0-a564-141453d65ece)
+
