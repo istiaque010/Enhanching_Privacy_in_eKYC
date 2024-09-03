@@ -85,4 +85,26 @@ for chunk in hash_chunks:
 
 ![image](https://github.com/user-attachments/assets/083d96f8-a2b8-4d62-a793-6614b75f96a2)
 
+### Smart contract to generate proof:
+```solidity 
+import "hashes/sha256/512bit" as sha256;
 
+// The main function for proving eKYC information
+def main() -> bool {
+   
+    
+    // Padding the remaining chunks with zeros to fill the 512-bit requirement
+    u32[16] eKYC_info = [
+        0x4a6f686e, 0x4d616c65, 0x4a617061, 0x34002e00, 0x6e000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000
+    ];
+    u32[8] expected_hash = [
+        0x726dd5a5, 0xabc4f8a7, 0xc38b6b54, 0x5ef62227,
+        0x2fc076ea, 0xa7250548, 0x949c546f, 0x31a8a816
+    ];
+    u32[8] computed_hash = sha256(eKYC_info[0..8], eKYC_info[8..16]);
+    bool isValid = computed_hash == expected_hash;
+    return isValid;
+}
+```
