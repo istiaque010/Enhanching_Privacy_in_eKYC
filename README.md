@@ -1,7 +1,7 @@
 # Enhancing Privacy in eKYC 
 
 
-### Information preprocessing
+### Information preprocessing:
 
 
 ```python 
@@ -79,5 +79,10 @@ for chunk in hash_chunks:
     print(f"0x{chunk:08x}")
 
 ```
+### Information preprocessing Output:
+
+![image](https://github.com/user-attachments/assets/9432f6fb-14ab-4757-ab18-33f95e19032b)
+
+![image](https://github.com/user-attachments/assets/083d96f8-a2b8-4d62-a793-6614b75f96a2)
 
 
